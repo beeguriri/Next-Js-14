@@ -2,8 +2,9 @@ import SignupModal from "@/app/(beforeLogin)/_component/SignUpModal";
 
 export default function Page() {
   return (
-    <SignupModal />
-  )
+    <>
+      <h3>intercepter test - signup modal</h3>
+      <SignupModal />
+    </>
+  );
 }
-
-//https://twitter.com/i/flow/login
