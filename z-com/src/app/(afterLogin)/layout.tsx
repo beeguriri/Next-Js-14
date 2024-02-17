@@ -24,7 +24,7 @@ export default function AfterLoginLayout({ children }: { children: ReactNode }) 
                 {/* ActiveLink 를 사용한 nav 메뉴 클라이언트 컴포넌트로 만듦! */}
                 <NavMenu />
               </ul>
-              <Link href="compose/post" className={style.postButton}>게시하기</Link>
+              <Link href="/compose/post" className={style.postButton}>게시하기</Link>
             </nav>
             {/* onclick event 같은게 있는 버튼은 클라이언트 컴포넌트로 만듦 */}
             <LogoutButton />
