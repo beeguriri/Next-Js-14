@@ -1,11 +1,12 @@
 import {ReactNode} from "react";
+import styles from "@/app/page.module.css";
 
 type Props = { children: ReactNode, modal: ReactNode };
-export default function BeforeLoginLayout({ children }: Props) {
+export default function BeforeLoginLayout({ children, modal }: Props) {
   return (
-    <div>
-      로그인 전 레이아웃
+    <div className={styles.container}>
       {children}
+      {modal}
     </div>
   )
 }

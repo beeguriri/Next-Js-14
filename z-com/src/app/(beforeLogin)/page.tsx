@@ -1,7 +1,7 @@
 import Image from "next/image";
-import styles from "./page.module.css";
+import styles from "../page.module.css";
 import Link from "next/link";
-import myLogo from "../../public/myLogo.png";
+import myLogo from "../../../public/myLogo.png";
 
 export default function Home() {
   return (
