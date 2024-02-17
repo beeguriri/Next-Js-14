@@ -13,15 +13,29 @@
 
 .leftSection {
     width: 275px;
+    height: 100dvh;
+}
+
+.leftSectionFixed {
+    width: 275px;
     padding: 0px;
     height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+.leftSectionFixed nav {
+    flex: 1;
+}
+
+.leftSection nav li {
+    list-style-type: none;
 }
 
 .leftSectionFixed {
     position: fixed;
     width: inherit; /*부모의 너비 그대로 가져오기*/
     height: 100%;
-    background-color: orange;
 }
 
 .logo {
@@ -41,6 +55,26 @@
 
 .logoPill:hover {
     background-color: rgba(15,20,25, 0.1);
+}
+
+.postButton {
+    margin: 16px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 52px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 8px 28px;
+    background-color: rgb(29, 155, 240);
+    width: 234px;
+    border: none;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    font-size: 17px;
+    border-radius: 26px;
+}
+
+.postButton:hover {
+    background-color: rgb(26, 140, 216);
 }
 
 .rightSectionWrapper {

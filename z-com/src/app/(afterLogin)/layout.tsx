@@ -3,6 +3,8 @@ import style from "@/app/(afterLogin)/layout.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import zLogo from "../../../public/zLogo.png";
+import NavMenu from "./_component/NavMenu";
+import LogoutButton from "./_component/LogoutButton";
 
 export default function AfterLoginLayout({ children }: { children: ReactNode }) {
   return (
@@ -17,6 +19,15 @@ export default function AfterLoginLayout({ children }: { children: ReactNode }) 
                 <Image src={zLogo} alt="z.com 로고" width={40} height={40}/>
               </div>
             </Link>
+            <nav>
+              <ul>
+                {/* ActiveLink 를 사용한 nav 메뉴 클라이언트 컴포넌트로 만듦! */}
+                <NavMenu />
+              </ul>
+              <Link href="compose/post" className={style.postButton}>게시하기</Link>
+            </nav>
+            {/* onclick event 같은게 있는 버튼은 클라이언트 컴포넌트로 만듦 */}
+            <LogoutButton />
           </div>
         </section>
       </header>
