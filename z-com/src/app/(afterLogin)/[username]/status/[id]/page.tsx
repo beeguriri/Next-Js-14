@@ -16,7 +16,9 @@ export default function SinglePost() {
         <h3 className={style.headerTitle}>게시하기</h3>
       </div>
       {/* 원본게시글 */}
-      <Post />
+      <div style={{ marginTop: 60}}>
+        <Post />
+      </div>
       {/* comment 폼 */}
       <CommentForm />
       {/* comment list => 얘도 post임 */}
