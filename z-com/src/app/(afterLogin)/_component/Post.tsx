@@ -27,7 +27,7 @@ export default function Post({noImage}:Props) {
       image: '/elon_temp.jpg',
     },
     postId: 1,
-    content: '여기에 내용이 들어가요! 내용을 어디한번 길게게 140자 넘게 써볼까요? 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬',
+    content: faker.lorem.text(),
     createdAt: new Date(),
     images: [] as any,
   }
