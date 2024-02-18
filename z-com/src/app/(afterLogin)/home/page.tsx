@@ -4,7 +4,7 @@ import Tab from './_component/Tab';
 import TabProvider from './_component/TabProvider';
 import style from './home.module.css';
 
-export default function Page() {
+export default function Home() {
   return (
     <main className={style.main}>
       <TabProvider> {/* 선택하는 탭에 따라 내용이 바뀜 => tap과 post의 공통부모*/}
