@@ -13,7 +13,11 @@ import { faker } from '@faker-js/faker';
 dayjs.locale('ko');
 dayjs.extend(relativeTime);
 
-export default function Post() {
+type Props = {
+ noImage?: boolean 
+}
+
+export default function Post({noImage}:Props) {
 
   //dummy data
   const target = {
@@ -28,7 +32,7 @@ export default function Post() {
     images: [] as any,
   }
 
-  if(Math.random() > 0.5)
+  if(Math.random() > 0.5 && !noImage)
     target.images.push({imageId: 1, link: faker.image.urlLoremFlickr()})
 
   //왼쪽에 프로필 사진
