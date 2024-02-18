@@ -7,6 +7,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
 import ActionButtons from './ActionButtons';
 import PostArticle from './PostArticle';
+import { faker } from '@faker-js/faker';
 
 //dayjs 플러그인 추가해주기
 dayjs.locale('ko');
@@ -24,8 +25,11 @@ export default function Post() {
     postId: 1,
     content: '여기에 내용이 들어가요! 내용을 어디한번 길게게 140자 넘게 써볼까요? 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬',
     createdAt: new Date(),
-    images: [],
+    images: [] as any,
   }
+
+  if(Math.random() > 0.5)
+    target.images.push({imageId: 1, link: faker.image.urlLoremFlickr()})
 
   //왼쪽에 프로필 사진
   //오른쪽 영역에는 이제
@@ -62,7 +66,16 @@ export default function Post() {
           {/* 플레인 텍스트 */}
           <div>{target.content}</div>
           {/* 이미지 영역 */}
-          <div className={style.postImageSection}></div>
+          <div className={style.postImageSection}>
+            {target.images && target.images.length > 0 && (
+              // 이미지를 클릭하면 https://twitter.com/[userId]/status/[postId]/photo/[imageId]
+              <Link href={`/${target.user.id}/status/${target.postId}/photo/${target.images[0].imageId}`}
+               className={style.postImageSection}
+              >
+                <img src={target.images[0]?.link} alt='' />
+              </Link>
+            )}
+          </div>
           {/* ⬇️ 댓글, 리트윗, 마음, 본사람, 북마크, 공유하기 버튼 영역 */}
           <ActionButtons />
         </div>
