@@ -6,23 +6,25 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
 import ActionButtons from './ActionButtons';
+import PostArticle from './PostArticle';
 
 //dayjs 플러그인 추가해주기
 dayjs.locale('ko');
 dayjs.extend(relativeTime);
 
-export default function Post () {
+export default function Post() {
 
   //dummy data
   const target = {
-    User: {
+    user: {
       id: 'elonmusk',
       nickname: 'Elon Musk',
       image: '/elon_temp.jpg',
     },
+    postId: 1,
     content: '여기에 내용이 들어가요! 내용을 어디한번 길게게 140자 넘게 써볼까요? 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬 안녕 디지몬',
     createdAt: new Date(),
-    Images: [],
+    images: [],
   }
 
   //왼쪽에 프로필 사진
@@ -33,12 +35,13 @@ export default function Post () {
   //본문 나오고
   //이미지 나오고
   return (
-    <article className={style.post}>
+    // ⭐부모는 클라이언트 컴포넌트, 자식은 서버 컴포넌트 일때⭐
+    <PostArticle post={target}>
       <div className={style.postWrapper}>
         {/* 유저 프로필 사진 영역 => 클릭하면 해당 유저의 프로필로 감 */}
         <div className={style.postUserSection}>
-          <Link href={`/${target.User.id}`} className={style.postUserImage}>
-            <img src={target.User.image} alt={target.User.nickname} />
+          <Link href={`/${target.user.id}`} className={style.postUserImage}>
+            <img src={target.user.image} alt={target.user.nickname} />
             <div className={style.postShade} />
           </Link>
         </div>
@@ -46,10 +49,10 @@ export default function Post () {
         <div className={style.postBody}>
           {/* 닉네임 - 아이디 - 지금으로부터 몇분전에 게시했는지 */}
           <div className={style.postMeta}>
-            <Link href={`/${target.User.id}`}>
-              <span className={style.postUserName}>{target.User.nickname}</span>
+            <Link href={`/${target.user.id}`}>
+              <span className={style.postUserName}>{target.user.nickname}</span>
               &nbsp;
-              <span className={style.postUserId}>@{target.User.id}</span>
+              <span className={style.postUserId}>@{target.user.id}</span>
               &nbsp;
               ·
               &nbsp;
@@ -64,6 +67,6 @@ export default function Post () {
           <ActionButtons />
         </div>
       </div>
-    </article>
+    </PostArticle>
   );
 }
