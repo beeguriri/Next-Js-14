@@ -7,6 +7,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
 import ActionButtons from './ActionButtons';
 import PostArticle from './PostArticle';
+import PostImages from './PostImages';
 import { faker } from '@faker-js/faker';
 
 //dayjs 플러그인 추가해주기
@@ -32,8 +33,12 @@ export default function Post({noImage}:Props) {
     images: [] as any,
   }
 
-  if(Math.random() > 0.5 && !noImage)
+  if(Math.random() > 0.5 && !noImage) {
     target.images.push({imageId: 1, link: faker.image.urlLoremFlickr()})
+    target.images.push({imageId: 2, link: faker.image.urlLoremFlickr()})
+    target.images.push({imageId: 3, link: faker.image.urlLoremFlickr()})
+    target.images.push({imageId: 4, link: faker.image.urlLoremFlickr()})
+  }
 
   //왼쪽에 프로필 사진
   //오른쪽 영역에는 이제
@@ -70,16 +75,7 @@ export default function Post({noImage}:Props) {
           {/* 플레인 텍스트 */}
           <div>{target.content}</div>
           {/* 이미지 영역 */}
-          <div className={style.postImageSection}>
-            {target.images && target.images.length > 0 && (
-              // 이미지를 클릭하면 https://twitter.com/[userId]/status/[postId]/photo/[imageId]
-              <Link href={`/${target.user.id}/status/${target.postId}/photo/${target.images[0].imageId}`}
-               className={style.postImageSection}
-              >
-                <img src={target.images[0]?.link} alt='' />
-              </Link>
-            )}
-          </div>
+          <div><PostImages post = {target}/></div>
           {/* ⬇️ 댓글, 리트윗, 마음, 본사람, 북마크, 공유하기 버튼 영역 */}
           <ActionButtons />
         </div>
