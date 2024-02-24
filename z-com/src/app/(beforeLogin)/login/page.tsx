@@ -7,6 +7,7 @@
 //import {redirect} from 'next/navigation'; //서버측에서 리다이렉트
 import { useRouter } from 'next/navigation'; //클라이언트측에서 리다이렉트
 import Main from '../_component/Main';
+import { useSession } from 'next-auth/react';
 
 export default function Login() {
   
@@ -15,6 +16,13 @@ export default function Login() {
 
   // 클라이언트측에서 리다이렉트
   const router = useRouter();
+  const {data : session} = useSession();
+  
+  if(session?.user) {
+    router.replace('/home');
+    return null;
+  }
+
   router.replace('/i/flow/login');
 
   // 원래는 localhost:3000 main page가 뜨고 거기서 localhost:3000/i/flow/login으로 인터셉터 되어 가서 배경이 뜨는데

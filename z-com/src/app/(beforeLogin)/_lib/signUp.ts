@@ -1,5 +1,6 @@
 "use server";
 
+import { signIn } from "@/auth";
 import { redirect } from "next/navigation";
 
 const signUp = async(prevState: any, formData: FormData) => {
@@ -31,6 +32,13 @@ const signUp = async(prevState: any, formData: FormData) => {
     }
 
     isPossibleRedirect = true;
+
+    //회원가입 성공 후 로그인 까지 처리
+    await signIn("credentials", {
+      username: formData.get('id'),
+      password: formData.get('password'),
+      redirect: false,
+    }); 
 
   } catch (err) {
     console.log(err);
