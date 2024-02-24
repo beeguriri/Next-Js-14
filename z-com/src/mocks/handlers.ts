@@ -16,4 +16,22 @@ export const handlers = [
 		}
 		)
 	}),
+
+	//회원가입
+	http.post('api/users', async () => {
+		console.log('회원가입');
+		//성공했을 때
+		// return HttpResponse.json(
+		// 	'ok', {
+		// 	headers: {
+		// 		'Set-Cookie' : 'connect.sid=msw-cookie;HttpOnly;Path=/;Max-Age=0'
+		// 	},
+		// })
+
+		//실패 했을 때
+		return new HttpResponse(null, {
+			status: 403,
+			statusText: 'user_exists',
+		})
+	}),
 ]
