@@ -12,7 +12,6 @@
   "dependencies": {
     "@auth/core": "^0.27.0",
     "@faker-js/faker": "^8.4.1",
-    "@mswjs/http-middleware": "^0.9.2",
     "classnames": "^2.5.1",
     "cors": "^2.8.5",
     "dayjs": "^1.11.10",
@@ -24,6 +23,7 @@
     "yarn": "^1.22.21"
   },
   "devDependencies": {
+    "@mswjs/http-middleware": "^0.9.1",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^20",
