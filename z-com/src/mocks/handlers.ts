@@ -109,4 +109,61 @@ export const handlers = [
       ]
     )
   }),
+  //post 가져오기
+  http.get('/api/followingPosts', ({ request }) => {
+    const url = new URL(request.url);
+    const cursor = parseInt(url.searchParams.get('cursor') as string) || 0;
+
+    return HttpResponse.json(
+      [
+        {
+          postId: cursor + 1,
+          User: User[0],
+          content: `${cursor + 1} following contents`,
+          Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
+          createdAt: generateDate(),
+        },
+        {
+          postId: cursor + 2,
+          User: User[2],
+          content: `${cursor + 2} following contents`,
+          Images: [
+            { imageId: 1, link: faker.image.urlLoremFlickr() },
+            { imageId: 2, link: faker.image.urlLoremFlickr() },
+          ],
+          createdAt: generateDate(),
+        },
+        {
+          postId: cursor + 3,
+          User: User[0],
+          content: `${cursor + 3} following contents`,
+          Images: [],
+          createdAt: generateDate(),
+        },
+        {
+          postId: cursor + 4,
+          User: User[2],
+          content: `${cursor + 4} following contents`,
+          Images: [
+            { imageId: 1, link: faker.image.urlLoremFlickr() },
+            { imageId: 2, link: faker.image.urlLoremFlickr() },
+            { imageId: 3, link: faker.image.urlLoremFlickr() },
+            { imageId: 4, link: faker.image.urlLoremFlickr() },
+          ],
+          createdAt: generateDate(),
+        },
+        {
+          postId: cursor + 5,
+          User: User[2],
+          content: `${cursor + 5} following contents`,
+          Images: [
+            { imageId: 1, link: faker.image.urlLoremFlickr() },
+            { imageId: 2, link: faker.image.urlLoremFlickr() },
+            { imageId: 3, link: faker.image.urlLoremFlickr() },
+          ],
+          createdAt: generateDate(),
+        },
+      ]
+    )
+  }),
 ]
