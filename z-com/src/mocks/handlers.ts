@@ -169,9 +169,10 @@ export const handlers = [
   //검색결과 post 가져오기
   http.get('/api/search/:tag', ({ request, params }) => {
 
-    console.log(params);
     const { tag } = params;
+    console.log('tag', tag);
     
+    params
     return HttpResponse.json(
       [
         {
