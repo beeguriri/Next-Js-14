@@ -1,45 +1,35 @@
-import BackButton from '../_component/BackButton';
-import Post from '../_component/Post';
+import UserInfo from './_component/UserInfo';
+import UserPosts from './_component/UserPosts';
+import getUser from './_lib/getUser';
+import getUserPosts from './_lib/getUserPosts';
 import style from './profile.module.css';
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 
-export default function Profile() {
-
-  // 임시로 내 정보 있는것처럼
-  const me = { 
-    id: 'beeguri',
-    nickname: '비그링',
-    image: '/profile.jpg',
+type Props = {
+  params: {
+    username: string
   }
+}
 
-  //백버튼, 아이디, 게시물 수
-  //프로필 사진
-  //아이디와 닉네임
-  //가입일
-  //...
-  //게시물 관련
+export default async function Profile({ params }: Props) {
+
+  const { username } = params;
+
+  //데이터 불러오기
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({ queryKey: ['users', username], queryFn: getUser });
+  await queryClient.prefetchQuery({ queryKey: ['posts', 'users', username], queryFn: getUserPosts });
+
+  const dehydratedState = dehydrate(queryClient);
+
   return (
     <main className={style.main}>
-      <div className={style.header}>
-        <BackButton />
-        <h3 className={style.headerTitle}>{me.nickname}</h3>
-      </div>
-      <div className={style.userZone}>
-        <div className={style.userImage}>
-          <img src={me.image} alt={me.id} />
+      <HydrationBoundary state={dehydratedState}>
+        <UserInfo username={username} />
+        <div>
+          <UserPosts username={username} />
         </div>
-        <div className={style.userName}>
-          <div>{me.nickname}</div>
-          <div>@{me.id}</div>
-        </div>
-        <button className={style.followButton}>프로필 설정하기</button>
-      </div>
-      <div>
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-      </div>
+      </HydrationBoundary>
     </main>
   )
 }

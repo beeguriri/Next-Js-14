@@ -9,36 +9,20 @@ import ActionButtons from './ActionButtons';
 import PostArticle from './PostArticle';
 import PostImages from './PostImages';
 import { faker } from '@faker-js/faker';
+import { Post } from '@/model/post';
 
 //dayjs 플러그인 추가해주기
 dayjs.locale('ko');
 dayjs.extend(relativeTime);
 
 type Props = {
- noImage?: boolean 
+ noImage?: boolean,
+ post: Post,
 }
 
-export default function Post({noImage}:Props) {
+export default function Post({noImage, post}:Props) {
 
-  //dummy data
-  const target = {
-    user: {
-      id: 'elonmusk',
-      nickname: 'Elon Musk',
-      image: '/elon_temp.jpg',
-    },
-    postId: 1,
-    content: faker.lorem.text(),
-    createdAt: new Date(),
-    images: [] as any,
-  }
-
-  if(Math.random() > 0.5 && !noImage) {
-    target.images.push({imageId: 1, link: faker.image.urlLoremFlickr()})
-    target.images.push({imageId: 2, link: faker.image.urlLoremFlickr()})
-    target.images.push({imageId: 3, link: faker.image.urlLoremFlickr()})
-    target.images.push({imageId: 4, link: faker.image.urlLoremFlickr()})
-  }
+  const target = post;
 
   //왼쪽에 프로필 사진
   //오른쪽 영역에는 이제
@@ -53,8 +37,8 @@ export default function Post({noImage}:Props) {
       <div className={style.postWrapper}>
         {/* 유저 프로필 사진 영역 => 클릭하면 해당 유저의 프로필로 감 */}
         <div className={style.postUserSection}>
-          <Link href={`/${target.user.id}`} className={style.postUserImage}>
-            <img src={target.user.image} alt={target.user.nickname} />
+          <Link href={`/${target.User.id}`} className={style.postUserImage}>
+            <img src={target.User.image} alt={target.User.nickname} />
             <div className={style.postShade} />
           </Link>
         </div>
@@ -62,10 +46,10 @@ export default function Post({noImage}:Props) {
         <div className={style.postBody}>
           {/* 닉네임 - 아이디 - 지금으로부터 몇분전에 게시했는지 */}
           <div className={style.postMeta}>
-            <Link href={`/${target.user.id}`}>
-              <span className={style.postUserName}>{target.user.nickname}</span>
+            <Link href={`/${target.User.id}`}>
+              <span className={style.postUserName}>{target.User.nickname}</span>
               &nbsp;
-              <span className={style.postUserId}>@{target.user.id}</span>
+              <span className={style.postUserId}>@{target.User.id}</span>
               &nbsp;
               ·
               &nbsp;

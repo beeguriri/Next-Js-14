@@ -8,6 +8,7 @@
 import { useRouter } from 'next/navigation'; //클라이언트측에서 리다이렉트
 import Main from '../_component/Main';
 import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 
 export default function Login() {
   
@@ -17,13 +18,15 @@ export default function Login() {
   // 클라이언트측에서 리다이렉트
   const router = useRouter();
   const {data : session} = useSession();
-  
-  if(session?.user) {
-    router.replace('/home');
-    return null;
-  }
 
-  router.replace('/i/flow/login');
+  useEffect(() => {
+    if(session?.user)
+      router.replace('/home');
+  }, [router, session?.user]);
+
+  useEffect(() => {
+    router.replace('/i/flow/login');
+  }, [router]);
 
   // 원래는 localhost:3000 main page가 뜨고 거기서 localhost:3000/i/flow/login으로 인터셉터 되어 가서 배경이 뜨는데
   // 리다이렉트 할 경우 localhost:3000 main page -> localhost:3000/login (배경 없음) -> localhost:3000/i/flow/login 으로 가기때문에

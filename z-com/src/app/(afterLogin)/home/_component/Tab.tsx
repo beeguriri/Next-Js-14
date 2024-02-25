@@ -1,15 +1,16 @@
 "use client";
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import style from './tab.module.css';
+import { TabContext } from './TabProvider';
 
 export default function Tab () {
 
   //tab을 누르면 post에 영향을 끼치므로 
   //상태관리가 들어가야해서
   //context api 사용 해보기!!
-  const [tab, setTab] = useState('recommend');
-
+  const { tab, setTab } = useContext(TabContext);
+  
   const onClickRecommend = () => {
     setTab('recommend');
   };
