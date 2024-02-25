@@ -3,8 +3,8 @@ import PostForm from './_component/PostForm';
 import Tab from './_component/Tab';
 import TabProvider from './_component/TabProvider';
 import style from './home.module.css';
-import PostRecommends from './_component/PostRecommends';
 import getPostRecommaends from './_lib/getPostRecommaends';
+import TabDecider from './_component/TabDecider';
 
 export default async function Home() {
 
@@ -24,7 +24,7 @@ export default async function Home() {
         <TabProvider> {/* 선택하는 탭에 따라 내용이 바뀜 => tap과 post의 공통부모*/}
           <Tab />
           <PostForm />
-          <PostRecommends />
+          <TabDecider />
         </TabProvider>
       </HydrationBoundary>
     </main>
