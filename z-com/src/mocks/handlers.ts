@@ -228,13 +228,13 @@ export const handlers = [
   http.get('/api/users/:userId', ({ request, params }) => {
 
     const { userId } = params;
+    console.log('userId', userId);
     return HttpResponse.json(User[1]);
   }),
   //특정 사용자의 post 가져오기
   http.get('/api/users/:userId/posts', ({ request, params }) => {
 
     const { userId } = params;
-    
     return HttpResponse.json(
       [
         {
