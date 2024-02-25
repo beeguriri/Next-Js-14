@@ -9,6 +9,7 @@ import TrendSection from "./_component/TrendSection";
 import FollowRecommendSection from "./_component/FollowRecommendSection";
 import RightSearchZone from "./_component/RightSearchZone";
 import { auth } from "@/auth";
+import RQProvider from "./_component/RQProvider";
 
 type Props = { children: ReactNode, modal: ReactNode }
 
@@ -50,19 +51,21 @@ export default async function AfterLoginLayout({ children, modal }: Props) {
       </header>
 
       {/* 오른쪽 페이지(child) + 고정 영역(나를 위한 트렌드 등) */}
-      <div className={style.rightSectionWrapper}>
-        <div className={style.rightSectionInner}>
-          <main className={style.main}>
-            {children}
-          </main>
-          <section className={style.rightSection}>
-            <RightSearchZone />
-            <TrendSection />
-            <FollowRecommendSection />
-          </section>
+      <RQProvider>
+        <div className={style.rightSectionWrapper}>
+          <div className={style.rightSectionInner}>
+            <main className={style.main}>
+              {children}
+            </main>
+            <section className={style.rightSection}>
+              <RightSearchZone />
+              <TrendSection />
+              <FollowRecommendSection />
+            </section>
+          </div>
         </div>
-      </div>
-      {modal}
+        {modal}
+      </RQProvider>
     </div>
   )
 }
