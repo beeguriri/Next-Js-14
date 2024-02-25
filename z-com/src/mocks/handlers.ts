@@ -229,24 +229,31 @@ export const handlers = [
 
     const { userId } = params;
     console.log('userId', userId);
-    return HttpResponse.json(User[1]);
+    const findUser = User.find((v) => v.id === userId);
+    if (findUser)
+      return HttpResponse.json(findUser);
+
+    return new HttpResponse('no_such_users', {status: 404});
   }),
+  
   //특정 사용자의 post 가져오기
   http.get('/api/users/:userId/posts', ({ request, params }) => {
 
     const { userId } = params;
+    const user = User.find((v) => v.id === userId);
+
     return HttpResponse.json(
       [
         {
           postId: 1,
-          User: User[0],
+          User: user,
           content: `${1} ${userId}의 게시글`,
           Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 2,
-          User: User[2],
+          User: user,
           content: `${2} ${userId}의 게시글`,
           Images: [
             { imageId: 1, link: faker.image.urlLoremFlickr() },
@@ -256,14 +263,14 @@ export const handlers = [
         },
         {
           postId: 3,
-          User: User[0],
+          User: user,
           content: `${3} ${userId}의 게시글`,
           Images: [],
           createdAt: generateDate(),
         },
         {
           postId: 4,
-          User: User[2],
+          User: user,
           content: `${4} ${userId}의 게시글`,
           Images: [
             { imageId: 1, link: faker.image.urlLoremFlickr() },
@@ -275,7 +282,7 @@ export const handlers = [
         },
         {
           postId: 5,
-          User: User[2],
+          User: user,
           content: `${5} ${userId}의 게시글`,
           Images: [
             { imageId: 1, link: faker.image.urlLoremFlickr() },
