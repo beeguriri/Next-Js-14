@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import style from './postModal.module.css';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 export default function PostModal() {
 
@@ -10,9 +11,12 @@ export default function PostModal() {
   const [content, setContent] = useState('');
 
   const {data : me } = useSession();
+  const router = useRouter();
 
   const onSubmit = () => {};
-  const onClickClose = () => {};
+  const onClickClose = () => {
+    router.back()
+  };
   const onClickButton = () => {};
   const onChangeContent = () => {};
 
