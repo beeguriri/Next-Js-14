@@ -2,17 +2,14 @@
 
 import { useRef, useState } from 'react';
 import style from './postModal.module.css';
+import { useSession } from 'next-auth/react';
 
 export default function PostModal() {
 
   const imageRef = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState('');
 
-  // 임시로 내 정보 있는것처럼
-  const me = { 
-    id: 'beeguri',
-    image: '/profile.jpg',
-  }
+  const {data : me } = useSession();
 
   const onSubmit = () => {};
   const onClickClose = () => {};
@@ -32,7 +29,7 @@ export default function PostModal() {
             {/* 사용자 사진 */}
             <div className={style.postUserSection}>
               <div className={style.postUserImage}>
-                <img src={me.image} alt={me.id} />
+                <img src={me?.user?.image as string} alt={me?.user?.email as string} />
               </div>
             </div>
             {/* 텍스트 입력 창 */}
