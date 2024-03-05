@@ -1,6 +1,6 @@
 "use client";
 
-import { Post as IPost} from '@/model/post';
+import { Post as IPost} from '@/model/Post';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import getUserPosts from '../_lib/getUserPosts';
 import Post from '../../_component/Post';
@@ -23,5 +23,7 @@ export default function UserPosts({username}: Props) {
 
   if (user)
     return data?.map((post) => <Post key={post.postId} post={post} />);
+
+  return null;
 
 }

@@ -1,4 +1,4 @@
-import { Post } from "@/model/post";
+import { Post } from "@/model/Post";
 import { QueryFunction } from "@tanstack/react-query";
 
 const getUserPosts: QueryFunction<Post[], [_1: string, _2: string, string,]> 
