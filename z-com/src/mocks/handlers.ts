@@ -54,6 +54,8 @@ export const handlers = [
 
   //post 가져오기
   http.get('/api/postRecommends', ({ request }) => {
+
+    //인피니티 스크롤 사용을 위하여 cursor 사용!
     const url = new URL(request.url);
     const cursor = parseInt(url.searchParams.get('cursor') as string) || 0;
 

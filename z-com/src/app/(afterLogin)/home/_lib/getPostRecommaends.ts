@@ -1,6 +1,10 @@
-async function getPostRecommaends() {
+type Props = {
+  pageParam?: number,
+}
+
+async function getPostRecommaends({pageParam} : Props) {
   const response = await fetch(
-    'http://localhost:9090/api/postRecommends', 
+    `http://localhost:9090/api/postRecommends?cursor=${pageParam}`, 
     {
       next: {
         tags: ['posts', 'recommends'] //caching data update 하기 위한 key
