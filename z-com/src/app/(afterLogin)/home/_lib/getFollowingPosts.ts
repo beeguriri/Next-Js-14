@@ -6,6 +6,7 @@ async function getFollowingPosts() {
         tags: ['posts', 'followings'] //caching data update 하기 위한 key
       },
       // cache: 'no-store', //cache 정책
+
     }
   );
 

@@ -10,6 +10,7 @@ import PostArticle from './PostArticle';
 import PostImages from './PostImages';
 import { Post } from '@/model/Post';
 
+
 //dayjs 플러그인 추가해주기
 dayjs.locale('ko');
 dayjs.extend(relativeTime);
@@ -20,6 +21,7 @@ type Props = {
 }
 
 export default function Post({ noImage, post }: Props) {
+
 
   const target = post;
 
