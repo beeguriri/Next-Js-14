@@ -10,6 +10,10 @@ function generateDate() {
   });
 }
 
+const delay = (ms: number) => new Promise((res, rej) => {
+  setTimeout(res, ms)
+})
+
 const User = [
   { id: 'elonmusk', nickname: 'Elon Musk', image: '/elon_temp.jpg' },
   { id: 'beeguri', nickname: '비그링', image: '/profile.jpg' },
@@ -53,7 +57,9 @@ export const handlers = [
   }),
 
   //post 가져오기
-  http.get('/api/postRecommends', ({ request }) => {
+  http.get('/api/postRecommends', async({ request }) => {
+
+    await delay(3000);
 
     //인피니티 스크롤 사용을 위하여 cursor 사용!
     const url = new URL(request.url);
@@ -112,7 +118,10 @@ export const handlers = [
     )
   }),
   //post 가져오기
-  http.get('/api/followingPosts', ({ request }) => {
+  http.get('/api/followingPosts', async({ request }) => {
+
+    await delay(3000);
+
     const url = new URL(request.url);
     const cursor = parseInt(url.searchParams.get('cursor') as string) || 0;
 
