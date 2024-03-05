@@ -45,7 +45,7 @@ export default async function Page({ params }: Props) {
           <SinglePost id={id} />
         </div>
         {/* comment 폼 */}
-        <CommentForm />
+        <CommentForm id={id} />
         {/* comment list => 얘도 post임 */}
         <div>
           <Comments id={id} />

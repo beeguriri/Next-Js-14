@@ -1,16 +1,17 @@
 "use client";
 
 import { Post as IPost} from '@/model/Post';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { notifyManager, useQuery, useQueryClient } from '@tanstack/react-query';
 import getSinglePost from '../_lib/getSinglePost';
 import Post from '@/app/(afterLogin)/_component/Post';
 import { error } from 'console';
 
 type Props = {
   id: string,
+  noImage?: boolean,
 }
 
-export default function SinglePost({id}: Props) {
+export default function SinglePost({id, noImage}: Props) {
 
   const { data: post, error } = useQuery<IPost, Object, IPost, [_1: string, _2: string]>({
     queryKey: ['posts', id],
@@ -39,5 +40,5 @@ export default function SinglePost({id}: Props) {
     //로딩중
     return null; 
   }
-  return <Post key={post.postId} post={post}/>
+  return <Post key={post.postId} post={post} noImage={noImage} />
 }

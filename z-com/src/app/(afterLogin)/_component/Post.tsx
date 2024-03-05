@@ -8,19 +8,18 @@ import 'dayjs/locale/ko';
 import ActionButtons from './ActionButtons';
 import PostArticle from './PostArticle';
 import PostImages from './PostImages';
-import { faker } from '@faker-js/faker';
-import { Post } from '@/model/post';
+import { Post } from '@/model/Post';
 
 //dayjs 플러그인 추가해주기
 dayjs.locale('ko');
 dayjs.extend(relativeTime);
 
 type Props = {
- noImage?: boolean,
- post: Post,
+  noImage?: boolean,
+  post: Post,
 }
 
-export default function Post({noImage, post}:Props) {
+export default function Post({ noImage, post }: Props) {
 
   const target = post;
 
@@ -59,7 +58,9 @@ export default function Post({noImage, post}:Props) {
           {/* 플레인 텍스트 */}
           <div>{target.content}</div>
           {/* 이미지 영역 */}
-          <div><PostImages post = {target}/></div>
+          {!noImage &&
+            <div><PostImages post={target} /></div>
+          }
           {/* ⬇️ 댓글, 리트윗, 마음, 본사람, 북마크, 공유하기 버튼 영역 */}
           <ActionButtons />
         </div>
