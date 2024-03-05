@@ -5,7 +5,7 @@ async function getPostRecommaends() {
       next: {
         tags: ['posts', 'recommends'] //caching data update 하기 위한 key
       },
-      cache: 'no-store', //cache 정책
+      // cache: 'no-store', //cache 정책
     }
   );
 

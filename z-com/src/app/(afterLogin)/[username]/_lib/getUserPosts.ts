@@ -11,7 +11,7 @@ const getUserPosts: QueryFunction<Post[], [_1: string, _2: string, string,]>
       next: {
         tags: ['posts', 'users', userId],
       },
-      cache: 'no-store',
+      // cache: 'no-store',
     }
   );
 

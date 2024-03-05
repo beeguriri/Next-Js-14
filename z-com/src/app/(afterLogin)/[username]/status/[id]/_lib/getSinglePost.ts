@@ -11,7 +11,7 @@ const getSinglePost: QueryFunction<Post, [_1: string, _2: string]>
       next: {
         tags: ['posts', id],
       },
-      cache: 'no-store',
+      // cache: 'no-store',
     }
   );
 

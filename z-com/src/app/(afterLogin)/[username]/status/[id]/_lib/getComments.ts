@@ -11,7 +11,7 @@ const getComments: QueryFunction<Post[], [_1: string, _2: string, _3: string]>
       next: {
         tags: ['posts', id, 'comments'],
       },
-      cache: 'no-store',
+      // cache: 'no-store',
     }
   );
 
