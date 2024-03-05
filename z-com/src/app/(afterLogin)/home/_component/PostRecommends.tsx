@@ -1,6 +1,6 @@
 "use client";
 
-import { InfiniteData, useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { InfiniteData, useInfiniteQuery, useQuery, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import getPostRecommaends from "../_lib/getPostRecommaends";
 import Post from "../../_component/Post";
 import { Post as IPost } from "@/model/Post";
@@ -21,7 +21,7 @@ export default function PostRecommends() {
     isPending, //완전 처음 불러올때 => true
     isLoading, //isPending && isFetching
     isError, //에러발생 하면 => true
-  } = useInfiniteQuery<IPost[], Object, InfiniteData<IPost[]>, [_1: string, _2: string], number>({
+  } = useSuspenseInfiniteQuery<IPost[], Object, InfiniteData<IPost[]>, [_1: string, _2: string], number>({
     queryKey: ['posts', 'recommends'],
     queryFn: getPostRecommaends,
     initialPageParam: 0,
@@ -46,9 +46,9 @@ export default function PostRecommends() {
     }
   }, [fetchNextPage, hasNextPage, inView, isFetching])
 
-  if (isError) {
-    return "에러 발생!!!";
-  }
+  // if (isError) {
+  //   return "에러 발생!!!";
+  // }
 
   return (
     <>
