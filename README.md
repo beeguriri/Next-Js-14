@@ -7,11 +7,11 @@
 - [Next.js 공식문서](https://nextjs.org/docs)
 
 ## 🎁 목차
-#### [0. 시작하기](#🎁-시작하기)
-#### [1. Intro](#🎁-intro)
-#### [2. Mock Service Worker 사용하기](#🎁-mock-service-worker-사용하기)
-#### [3. Next-Auth 사용하기](#🎁-next-auth-사용하기)
-#### [4. Tanstack Query 사용하여 서버의 데이터 가져오기](#🎁-tanstack-query-사용하여-서버의-데이터-가져오기)
+#### [0. 시작하기](#-시작하기)
+#### [1. Intro](#-intro)
+#### [2. Mock Service Worker 사용하기](#-mock-service-worker-사용하기)
+#### [3. Next-Auth 사용하기](#-next-auth-사용하기)
+#### [4. Tanstack Query 사용하여 서버의 데이터 가져오기](#-tanstack-query-사용하여-서버의-데이터-가져오기)
 
 
 ## 🎁 시작하기
