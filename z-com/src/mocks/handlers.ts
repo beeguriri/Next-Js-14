@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw';
+import { http, HttpResponse, StrictResponse } from 'msw';
 import { faker } from '@faker-js/faker';
 
 function generateDate() {
@@ -9,6 +9,11 @@ function generateDate() {
     to: Date.now(),
   });
 }
+
+const delay = (ms: number) => new Promise((res, rej) => {
+  setTimeout(res, ms)
+})
+
 
 const User = [
   { id: 'elonmusk', nickname: 'Elon Musk', image: '/elon_temp.jpg' },
@@ -53,7 +58,11 @@ export const handlers = [
   }),
 
   //post 가져오기
-  http.get('/api/postRecommends', ({ request }) => {
+  http.get('/api/postRecommends', async({ request }) => {
+    await delay(3000);
+
+    //인피니티 스크롤 사용을 위하여 cursor 사용!
+
     const url = new URL(request.url);
     const cursor = parseInt(url.searchParams.get('cursor') as string) || 0;
 
@@ -110,7 +119,8 @@ export const handlers = [
     )
   }),
   //post 가져오기
-  http.get('/api/followingPosts', ({ request }) => {
+  http.get('/api/followingPosts', async({ request }) => {
+    await delay(3000);
     const url = new URL(request.url);
     const cursor = parseInt(url.searchParams.get('cursor') as string) || 0;
 
@@ -240,6 +250,8 @@ export const handlers = [
   http.get('/api/users/:userId/posts', ({ request, params }) => {
 
     const { userId } = params;
+    console.log('user의 post 가져오기', params);
+
     const user = User.find((v) => v.id === userId);
 
     return HttpResponse.json(
@@ -295,23 +307,24 @@ export const handlers = [
     )
   }),
   //post의 답글
-  http.get('/api/users/:userId/posts/:postId/comments', ({ request, params }) => {
+  http.get('/api/posts/:postId/comments', ({ request, params }) => {
 
-    const { userId, postId } = params;
+    const { postId } = params;
+    console.log('post의 답글', params);
     
     return HttpResponse.json(
       [
         {
           postId: 1,
           User: User[0],
-          content: `${1} ${userId}의 게시글 ${postId}의 답글`,
+          content: `${1} 게시글 ${postId}의 답글`,
           Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
           createdAt: generateDate(),
         },
         {
           postId: 2,
           User: User[2],
-          content: `${2} ${userId}의 게시글 ${postId}의 답글`,
+          content: `${2} 게시글 ${postId}의 답글`,
           Images: [
             { imageId: 1, link: faker.image.urlLoremFlickr() },
             { imageId: 2, link: faker.image.urlLoremFlickr() },
@@ -321,14 +334,14 @@ export const handlers = [
         {
           postId: 3,
           User: User[0],
-          content: `${3} ${userId}의 게시글 ${postId}의 답글`,
+          content: `${3} 게시글 ${postId}의 답글`,
           Images: [],
           createdAt: generateDate(),
         },
         {
           postId: 4,
           User: User[2],
-          content: `${4} ${userId}의 게시글 ${postId}의 답글`,
+          content: `${4} 게시글 ${postId}의 답글`,
           Images: [
             { imageId: 1, link: faker.image.urlLoremFlickr() },
             { imageId: 2, link: faker.image.urlLoremFlickr() },
@@ -340,7 +353,7 @@ export const handlers = [
         {
           postId: 5,
           User: User[2],
-          content: `${5} ${userId}의 게시글 ${postId}의 답글`,
+          content: `${5} 게시글 ${postId}의 답글`,
           Images: [
             { imageId: 1, link: faker.image.urlLoremFlickr() },
             { imageId: 2, link: faker.image.urlLoremFlickr() },
@@ -352,16 +365,28 @@ export const handlers = [
     )
   }),
   //post 하나 가져오기
-  http.get('/api/users/:userId/posts/:postId', ({ request, params }) => {
+  http.get('/api/posts/:postId', ({ request, params }): StrictResponse<any> => {
 
-    const { userId, postId } = params;
+    const { postId } = params;
+    console.log('post 하나 가져오기', params);
     
+    //강제 예외 발생
+    if (Number(postId) > 10) {
+        return HttpResponse.json(
+          { message: 'no_such_post'}, 
+          { status: 404 }
+        )
+    }
     return HttpResponse.json(
       {
         postId: 1,
         User: User[0],
-        content: `${1} ${userId}의 게시글 ${postId}의 내용`,
-        Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
+        content: `${1} 게시글 ${postId}의 내용`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+          { imageId: 3, link: faker.image.urlLoremFlickr() }
+        ],
         createdAt: generateDate(),
       },
     )

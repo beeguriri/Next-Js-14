@@ -9,30 +9,46 @@ export default function Tab() {
   const [current, setCurrent] = useState('new');
   const router = useRouter();
   const searchParams = useSearchParams();
+  let url;
 
   const onClickHot = () => {
     setCurrent('hot');
-    router.replace(`/search?q=${searchParams.get('q')}`);
+    url = `/search?q=${searchParams.get('q')}`;
+    if (searchParams.has('pf'))
+      url += `&pf=${searchParams.get('pf')}`
+    router.replace(url);
   };
 
   const onClickNew = () => {
     setCurrent('new');
-    router.replace(`/search?q=${searchParams.get('q')}&f=live`);
+    url = `/search?q=${searchParams.get('q')}&f=live`;
+    if (searchParams.has('pf'))
+      url += `&pf=${searchParams.get('pf')}`
+    router.replace(url);
   };
 
   const onClickUser = () => {
     setCurrent('user');
-    router.replace(`/search?q=${searchParams.get('q')}&f=user`);
+    url = `/search?q=${searchParams.get('q')}&f=user`;
+    if (searchParams.has('pf'))
+      url += `&pf=${searchParams.get('pf')}`
+    router.replace(url);
   };
 
   const onClickMedia = () => {
     setCurrent('media');
-    router.replace(`/search?q=${searchParams.get('q')}&f=media`);
+    url = `/search?q=${searchParams.get('q')}&f=media`;
+    if (searchParams.has('pf'))
+      url += `&pf=${searchParams.get('pf')}`
+    router.replace(url);
   };
 
   const onClickList = () => {
     setCurrent('list');
-    router.replace(`/search?q=${searchParams.get('q')}&f=list`);
+    url = `/search?q=${searchParams.get('q')}&f=list`;
+    if (searchParams.has('pf'))
+      url += `&pf=${searchParams.get('pf')}`
+    router.replace(url);
   };
 
   return (

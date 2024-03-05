@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSelectedLayoutSegment, useSelectedLayoutSegments } from "next/navigation";
 import style from "./navMenu.module.css";
+import { useSession } from "next-auth/react";
 
 export default function NavMenu() {
 
@@ -15,10 +16,7 @@ export default function NavMenu() {
   // console.log(segments);
   // console.log(segments.length)
 
-  const me = {
-    //내 정보 표시하기
-    id: 'beeguri'
-  };
+  const { data : me } = useSession();
 
   return (
     <>
@@ -151,10 +149,10 @@ export default function NavMenu() {
         </Link>
       </li>
       {/* 커뮤니티 부분 */}
-      {me?.id && <li>
-        <Link href={`/${me?.id}/communities`}>
+      {me?.user?.email && <li>
+        <Link href={`/${me?.user.email}/communities`}>
           <div className={style.navPill}>
-            {segments[0] === me.id  && segments[1] === 'communities' ? 
+            {segments[0] === me.user.email  && segments[1] === 'communities' ? 
               <>
                 <svg width={26} viewBox="0 0 24 24" aria-hidden="true" 
                   className="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-18jsvk2 r-lwhw9o r-cnnz9e">
@@ -178,10 +176,10 @@ export default function NavMenu() {
         </Link>
       </li>}
       {/* 프로필 부분 */}
-      {me?.id && <li>
-        <Link href={`/${me?.id}`}>
+      {me?.user?.email && <li>
+        <Link href={`/${me?.user.email}`}>
           <div className={style.navPill}>
-            {segments[0] === me.id && segments.length===1 ? 
+            {segments[0] === me.user.email && segments.length===1 ? 
               <>
                 <svg width={26} viewBox="0 0 24 24" aria-hidden="true" 
                   className="r-18jsvk2 r-4qtqp9 r-yyyyoo r-lwhw9o r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-cnnz9e">

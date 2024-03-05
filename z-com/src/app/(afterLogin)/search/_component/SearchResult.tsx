@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import Post from "../../_component/Post";
-import { Post as IPost } from "@/model/post";
+import { Post as IPost } from "@/model/Post";
 import getSearchResults from "../_lib/getSearchResult"
 
 type Props = {

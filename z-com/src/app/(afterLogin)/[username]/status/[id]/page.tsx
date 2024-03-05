@@ -1,33 +1,56 @@
 import BackButton from "@/app/(afterLogin)/_component/BackButton";
 import style from "./singlePost.module.css";
-import Post from "@/app/(afterLogin)/_component/Post";
 import CommentForm from "./_component/CommentForm";
+import SinglePost from "./_component/SinglePost";
+import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
+import getSinglePost from "./_lib/getSinglePost";
+import getComments from "./_lib/getComments";
+import Comments from "./_component/Comments";
 
+type Props = {
+  params: { id: string }
+}
 
-// 원본 게시글
-// 답글 게시하기
-// 답글
-export default function SinglePost() {
+export default async function Page({ params }: Props) {
+
+  const { id } = params;
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(
+    {
+      queryKey: ['posts', id],
+      queryFn: getSinglePost,
+    }
+  );
+
+  await queryClient.prefetchQuery(
+    {
+      queryKey: ['posts', id, 'comments'],
+      queryFn: getComments,
+    }
+  );
+
+  const dehydratedState = dehydrate(queryClient);
+
   return (
     <div className={style.main}>
-      {/* 헤더 영역 */}
-      <div className={style.header}>
-        <BackButton />
-        <h3 className={style.headerTitle}>게시하기</h3>
-      </div>
-      {/* 원본게시글 */}
-      <div style={{ marginTop: 60}}>
-        <Post />
-      </div>
-      {/* comment 폼 */}
-      <CommentForm />
-      {/* comment list => 얘도 post임 */}
-      <div>
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-      </div>
+      <HydrationBoundary state={dehydratedState}>
+        {/* 헤더 영역 */}
+        <div className={style.header}>
+          <BackButton />
+          <h3 className={style.headerTitle}>게시하기</h3>
+        </div>
+        {/* 원본게시글 */}
+        <div style={{ marginTop: 60 }}>
+          <SinglePost id={id} />
+        </div>
+        {/* comment 폼 */}
+        <CommentForm id={id} />
+        {/* comment list => 얘도 post임 */}
+        <div>
+          <Comments id={id} />
+        </div>
+      </HydrationBoundary>
     </div>
   )
 }
