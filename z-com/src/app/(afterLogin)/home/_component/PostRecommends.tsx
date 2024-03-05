@@ -13,7 +13,15 @@ import { useInView } from "react-intersection-observer";
 //isFetching : react query가 데이터를 가져오는 순간인지 감지하는 파라미터
 //같은 컴포넌트 내에서는 스크롤 복원이 됨!!
 export default function PostRecommends() {
-  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<IPost[], Object, InfiniteData<IPost[]>, [_1: string, _2: string], number>({
+  const { 
+    data, 
+    fetchNextPage, 
+    hasNextPage, 
+    isFetching, //데이터를 가져올떄(queryFn 호출될 떄) => true
+    isPending, //완전 처음 불러올때 => true
+    isLoading, //isPending && isFetching
+    isError, //에러발생 하면 => true
+  } = useInfiniteQuery<IPost[], Object, InfiniteData<IPost[]>, [_1: string, _2: string], number>({
     queryKey: ['posts', 'recommends'],
     queryFn: getPostRecommaends,
     initialPageParam: 0,
@@ -37,6 +45,10 @@ export default function PostRecommends() {
       !isFetching && hasNextPage && fetchNextPage();
     }
   }, [fetchNextPage, hasNextPage, inView, isFetching])
+
+  if (isError) {
+    return "에러 발생!!!";
+  }
 
   return (
     <>
